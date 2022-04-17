@@ -1,6 +1,7 @@
 from typing import Optional
-from pydantic import BaseSettings, Field, AnyUrl, validator
+
 import iscc_core as ic
+from pydantic import BaseSettings, Field, validator
 
 __all__ = [
     "config",

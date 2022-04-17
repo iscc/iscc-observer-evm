@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import time
-from loguru import logger as log
+
 import iscc_core as ic
+from loguru import logger as log
+
 import iscc_observer_evm as evm
 
 

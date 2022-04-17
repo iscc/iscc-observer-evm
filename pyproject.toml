@@ -21,6 +21,7 @@ iscc-core = {url = "https://files.pythonhosted.org/packages/dc/ac/b89f1efbaf495b
 pytest = "*"
 black = "*"
 poethepoet = "*"
+isort = "^5.10.1"
 
 [tool.black]
 skip-string-normalization = false
@@ -31,9 +32,10 @@ target-version = ['py37']
 
 
 [tool.poe.tasks]
+isort = { cmd = "poetry run isort .", help = "Sort imports with isort"}
 format = { cmd = "poetry run black .", help = "Code style formating with black" }
 test = { cmd = "poetry run pytest", help = "Run tests with coverage" }
-all = ["format", "test"]
+all = ["isort", "format", "test"]
 
 
 [build-system]
