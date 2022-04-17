@@ -8,6 +8,6 @@ def test_evm_config():
         "hub_contract": "0x23fEcFd850135a6B21c1151ca9a35CC3CB697fd8",
         "observer_token": "observer-token",
         "registry_url": "http://localhost:8888/api",
-        "update_interval": 1,
+        "update_interval": 5,
         "web3_url": "https://rinkeby.infura.io",
     }
