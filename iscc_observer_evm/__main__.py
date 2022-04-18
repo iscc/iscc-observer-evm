@@ -19,20 +19,6 @@ w3.middleware_onion.inject(geth_poa_middleware, layer=0)
 abi = json.load(open(HERE / "abi.json"))
 
 
-def get_head():
-    headers = {"Authorization": f"Bearer {evm.config.observer_token}"}
-    url = f"{evm.config.registry_url}/head/{evm.config.chain_id}"
-    log.debug(f"calling {url}")
-    response = requests.get(url, headers=headers, timeout=5)
-    if response.status_code == 401:
-        log.error(f"Authentication failed")
-        sys.exit(1)
-    if response.status_code == 422:
-        log.info(f"No historic events in registry for {evm.config.chain_id}")
-        return None
-    return response.json()
-
-
 def register(declaration: dict) -> dict:
     headers = {"Authorization": f"Bearer {evm.config.observer_token}"}
     url = f"{evm.config.registry_url}/register"
@@ -61,12 +47,12 @@ def main():
         time.sleep(evm.config.update_interval)
         # check registry status:
 
-        head = get_head()
-        start_height = head["block_height"] + 1 if head else 0
+        head = evm.registry().head()
+        start_height = head.block_height + 1 if head else 0
 
         if head is not None:
-            chain_block = w3.eth.getBlock(head["block_height"])
-            if head["block_hash"] != chain_block.hash.hex():
+            chain_block = w3.eth.getBlock(head.block_height)
+            if head.block_hash != chain_block.hash.hex():
                 log.warning(f"registry out of sync at {head}")
 
         # TODO rollback registry
