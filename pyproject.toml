@@ -22,20 +22,30 @@ pytest = "*"
 black = "*"
 poethepoet = "*"
 isort = "^5.10.1"
+datamodel-code-generator = {extras = ["http"], version = "^0.12.0"}
 
 [tool.black]
 skip-string-normalization = false
 line-length = 100
 target-version = ['py37']
 
+[tool.datamodel-codegen]
+url = "https://testnet.iscc.id/api/openapi.json"
+output = "iscc_observer_evm/models.py"
+encoding = "UTF-8"
+input-file-type = "openapi"
+target-python-version = "3.7"
+
 [tool.pytest.ini_options]
 
 
 [tool.poe.tasks]
+codegen = { cmd = "datamodel-codegen", help = "Generate code from openapi schema"}
 isort = { cmd = "poetry run isort .", help = "Sort imports with isort"}
 format = { cmd = "poetry run black .", help = "Code style formating with black" }
+lf = { cmd = "poetry run python -m tools.lf", help = "Convert line endings to lf"}
 test = { cmd = "poetry run pytest", help = "Run tests with coverage" }
-all = ["isort", "format", "test"]
+all = ["codegen", "isort", "format", "lf", "test"]
 
 
 [build-system]
