@@ -33,6 +33,13 @@ target-version = ['py37']
 url = "https://testnet.iscc.id/api/openapi.json"
 output = "iscc_observer_evm/models.py"
 encoding = "UTF-8"
+preview = true
+disable_timestamp = true
+user_schema_description = true
+openapi_scopes = ["schemas", "paths"]
+reuse_model = true
+disable_appending_item_suffix = true
+field_constraints = true
 input-file-type = "openapi"
 target-python-version = "3.7"
 
