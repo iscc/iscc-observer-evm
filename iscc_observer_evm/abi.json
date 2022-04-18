@@ -1,0 +1,140 @@
+[
+    {
+        "name": "IsccDeclaration",
+        "inputs": [
+            {
+                "name": "iscc",
+                "type": "string",
+                "indexed": false
+            },
+            {
+                "name": "url",
+                "type": "string",
+                "indexed": false
+            },
+            {
+                "name": "message",
+                "type": "string",
+                "indexed": false
+            },
+            {
+                "name": "declarer",
+                "type": "address",
+                "indexed": false
+            },
+            {
+                "name": "registrar",
+                "type": "address",
+                "indexed": false
+            }
+        ],
+        "anonymous": false,
+        "type": "event"
+    },
+    {
+        "stateMutability": "nonpayable",
+        "type": "constructor",
+        "inputs": [],
+        "outputs": []
+    },
+    {
+        "stateMutability": "payable",
+        "type": "fallback"
+    },
+    {
+        "stateMutability": "payable",
+        "type": "function",
+        "name": "iscc_announce",
+        "inputs": [
+            {
+                "name": "_iscc",
+                "type": "string"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "gas": 47529
+    },
+    {
+        "stateMutability": "payable",
+        "type": "function",
+        "name": "iscc_announce",
+        "inputs": [
+            {
+                "name": "_iscc",
+                "type": "string"
+            },
+            {
+                "name": "_url",
+                "type": "string"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "gas": 47529
+    },
+    {
+        "stateMutability": "payable",
+        "type": "function",
+        "name": "iscc_announce",
+        "inputs": [
+            {
+                "name": "_iscc",
+                "type": "string"
+            },
+            {
+                "name": "_url",
+                "type": "string"
+            },
+            {
+                "name": "_message",
+                "type": "string"
+            }
+        ],
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "gas": 47529
+    },
+    {
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "name": "transfer",
+        "inputs": [
+            {
+                "name": "_to",
+                "type": "address"
+            },
+            {
+                "name": "_amount",
+                "type": "uint256"
+            }
+        ],
+        "outputs": [],
+        "gas": 39034
+    },
+    {
+        "stateMutability": "view",
+        "type": "function",
+        "name": "operator",
+        "inputs": [],
+        "outputs": [
+            {
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "gas": 2610
+    }
+]
