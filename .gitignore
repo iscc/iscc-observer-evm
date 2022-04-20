@@ -150,3 +150,7 @@ dev/dev.db
 
 # Django staticfiles
 static/
+
+.env.*
+!.env.dev
+
