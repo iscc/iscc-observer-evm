@@ -16,6 +16,7 @@ web3 = "^5.29.0"
 cython = "*"
 iscc-core = {url = "https://files.pythonhosted.org/packages/dc/ac/b89f1efbaf495b8788f8fd69fd287bfa124eb0509061686eac9e47213499/iscc-core-0.2.7.tar.gz"}
 click = "^8.1.2"
+sentry-sdk = "^1.5.10"
 
 
 [tool.poetry.dev-dependencies]

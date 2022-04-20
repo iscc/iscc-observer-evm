@@ -14,6 +14,7 @@ class ObserverSettings(BaseSettings):
     observer_token: str = Field(..., description="OBSERVER_TOKEN for access to ISCC-REGISTRY")
     update_interval: Optional[int] = Field(default=5, description="UPDATE_INTERVAL in seconds")
     read_timeout: Optional[int] = Field(default=20, description="READ_TIMEOUT in seconds")
+    sentry_dsn: Optional[str] = Field(default="", description="SENTRY_DSN for error reporting")
 
     class Config:
         env_file = ".env.dev"
@@ -28,3 +29,8 @@ class ObserverSettings(BaseSettings):
 
 
 config = ObserverSettings()
+
+if config.sentry_dsn:
+    import sentry_sdk
+
+    sentry_sdk.init(dsn=config.sentry_dsn, traces_sample_rate=0.1)

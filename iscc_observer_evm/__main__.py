@@ -4,6 +4,8 @@ import time
 import click
 import iscc_core as ic
 from loguru import logger as log
+from sentry_sdk import capture_exception
+
 import iscc_observer_evm as evm
 from asyncio.exceptions import TimeoutError
 
@@ -85,8 +87,10 @@ def main(envfile):
         time.sleep(evm.config.update_interval)
         try:
             update()
-        except TimeoutError as e:
-            log.warning(e)
+        except Exception as e:
+            if evm.config.sentry_dsn:
+                capture_exception(e)
+            log.error(e)
 
 
 if __name__ == "__main__":
