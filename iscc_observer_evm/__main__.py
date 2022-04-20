@@ -3,7 +3,7 @@ import json
 import pathlib
 import sys
 import time
-
+import click
 import iscc_core as ic
 import requests
 from loguru import logger as log
@@ -11,6 +11,7 @@ from web3 import Web3
 from web3.middleware import geth_poa_middleware
 
 import iscc_observer_evm as evm
+from iscc_observer_evm.models import Declaration
 
 HERE = pathlib.Path(__file__).parent.absolute()
 
@@ -29,10 +30,15 @@ def register(declaration: dict) -> dict:
     print(response.content)
 
 
-def main():
+@click.command()
+@click.argument("envfile", default=".env.dev")
+def main(envfile):
+    log.info(f"load settings from env file {envfile}")
+    evm.config = evm.ObserverSettings(_env_file=envfile)
+
     log.info(f" --> starting evm observer")
     log.info(f"web3:\t\t{evm.config.web3_url}")
-    log.info(f"chain:\t\t{ic.ST_ID(evm.config.chain_id).name}")
+    log.info(f"chain:\t{ic.ST_ID(evm.config.chain_id).name}")
     log.info(f"contract:\t{evm.config.hub_contract}")
     log.info(f"registry:\t{evm.config.registry_url}")
     log.info(f"updates:\tevery {evm.config.update_interval} seconds")
@@ -73,8 +79,8 @@ def main():
                 meta_url=event.args.url,
                 registrar=event.args.registrar,
             )
-            resp = register(declaration)
-            log.info(f"registered {resp['iscc_id']} with did {resp['did']}")
+            resp = evm.registry().register(declaration)
+            log.info(f"registered {resp.iscc_id} with did {resp.did}")
 
 
 if __name__ == "__main__":

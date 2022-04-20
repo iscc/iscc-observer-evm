@@ -9,5 +9,6 @@ def test_evm_config():
         "observer_token": "observer-token",
         "registry_url": "http://localhost:8888/api",
         "update_interval": 5,
-        "web3_url": "https://rinkeby.infura.io",
+        "read_timeout": 20,
+        "web3_url": "wss://127.0.0.1:8546",
     }

@@ -3,9 +3,7 @@ from typing import Optional
 import iscc_core as ic
 from pydantic import BaseSettings, Field, validator
 
-__all__ = [
-    "config",
-]
+__all__ = ["config", "ObserverSettings"]
 
 
 class ObserverSettings(BaseSettings):
@@ -14,7 +12,8 @@ class ObserverSettings(BaseSettings):
     hub_contract: str = Field(..., description="Address of ISCC-HUB contract")
     registry_url: str = Field(..., description="URL of ISCC-REGISTRY service")
     observer_token: str = Field(..., description="OBSERVER_TOKEN for access to ISCC-REGISTRY")
-    update_interval: Optional[int] = Field(default=10, description="UPDATE_INTERVAL in seconds")
+    update_interval: Optional[int] = Field(default=5, description="UPDATE_INTERVAL in seconds")
+    read_timeout: Optional[int] = Field(default=20, description="READ_TIMEOUT in seconds")
 
     class Config:
         env_file = ".env.dev"
