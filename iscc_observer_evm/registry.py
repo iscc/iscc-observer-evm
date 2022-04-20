@@ -44,3 +44,11 @@ class Registry:
         if response.status_code == 201:
             return RegistrationResponse(**response.json())
         log.warning(response.content)
+
+    def rollback(self, block_hash: str) -> Optional[Head]:
+        url = f"{self.url}/rollback/{block_hash}"
+        log.debug(f"POST {url}")
+        response = self.session.post(url, timeout=self.timeout)
+        if response.status_code == 200:
+            return Head(**response.json())
+        log.warning(response.content)
