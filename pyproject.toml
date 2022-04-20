@@ -15,14 +15,17 @@ python = ">3.7.0,<3.7.1 || >3.7.1,<4.0"
 web3 = "^5.29.0"
 cython = "*"
 iscc-core = {url = "https://files.pythonhosted.org/packages/dc/ac/b89f1efbaf495b8788f8fd69fd287bfa124eb0509061686eac9e47213499/iscc-core-0.2.7.tar.gz"}
+click = "^8.1.2"
 
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
 black = "*"
 poethepoet = "*"
-isort = "^5.10.1"
 datamodel-code-generator = {extras = ["http"], version = "^0.12.0"}
+
+[tool.poetry.scripts]
+iscc-observer-evm = 'iscc_observer_evm.__main__:main'
 
 [tool.black]
 skip-string-normalization = false
@@ -30,7 +33,7 @@ line-length = 100
 target-version = ['py37']
 
 [tool.datamodel-codegen]
-url = "https://testnet.iscc.id/api/openapi.json"
+url = "https://testnet.iscc.id/api/v1/openapi.json"
 output = "iscc_observer_evm/models.py"
 encoding = "UTF-8"
 preview = true
@@ -48,11 +51,10 @@ target-python-version = "3.7"
 
 [tool.poe.tasks]
 codegen = { cmd = "datamodel-codegen", help = "Generate code from openapi schema"}
-isort = { cmd = "poetry run isort .", help = "Sort imports with isort"}
 format = { cmd = "poetry run black .", help = "Code style formating with black" }
 lf = { cmd = "poetry run python -m tools.lf", help = "Convert line endings to lf"}
 test = { cmd = "poetry run pytest", help = "Run tests with coverage" }
-all = ["codegen", "isort", "format", "lf", "test"]
+all = ["codegen", "format", "lf", "test"]
 
 
 [build-system]
