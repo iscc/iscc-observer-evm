@@ -1,33 +1,13 @@
 # -*- coding: utf-8 -*-
-import json
 import pathlib
-import sys
 import time
 import click
 import iscc_core as ic
-import requests
 from loguru import logger as log
-from web3 import Web3
-from web3.middleware import geth_poa_middleware
-
 import iscc_observer_evm as evm
-from iscc_observer_evm.models import Declaration
+
 
 HERE = pathlib.Path(__file__).parent.absolute()
-
-w3 = Web3(Web3.WebsocketProvider(evm.config.web3_url))
-w3.middleware_onion.inject(geth_poa_middleware, layer=0)
-abi = json.load(open(HERE / "abi.json"))
-
-
-def register(declaration: dict) -> dict:
-    headers = {"Authorization": f"Bearer {evm.config.observer_token}"}
-    url = f"{evm.config.registry_url}/register"
-    response = requests.post(url, json=declaration, headers=headers, timeout=4)
-    if response.status_code == 201:
-        return response.json()
-    print(response.status_code)
-    print(response.content)
 
 
 @click.command()
@@ -43,29 +23,27 @@ def main(envfile):
     log.info(f"registry:\t{evm.config.registry_url}")
     log.info(f"updates:\tevery {evm.config.update_interval} seconds")
 
-    while not w3.isConnected():
+    while not evm.chain().w3.isConnected():
         log.error(f"connection failed to {evm.config.web3_url}")
         time.sleep(evm.config.update_interval)
 
-    co = w3.eth.contract(evm.config.hub_contract, abi=abi)
-
     while True:
         time.sleep(evm.config.update_interval)
-        # check registry status:
 
+        # check registry status:
         head = evm.registry().head()
         start_height = head.block_height + 1 if head else 0
 
         if head is not None:
-            chain_block = w3.eth.getBlock(head.block_height)
+            # chain_block = w3.eth.getBlock(head.block_height)
+            chain_block = evm.chain().block(head.block_height)
             if head.block_hash != chain_block.hash.hex():
                 log.warning(f"registry out of sync at {head}")
 
         # TODO rollback registry
 
-        event_filter = co.events.IsccDeclaration.createFilter(fromBlock=start_height)
-        for event in event_filter.get_all_entries():
-            block = w3.eth.getBlock(event.blockNumber)
+        for event in evm.chain().events(from_block=start_height):
+            block = evm.chain().block(event.blockNumber)
             declaration = dict(
                 timestamp=block.timestamp,
                 chain_id=evm.config.chain_id,
