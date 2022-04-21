@@ -599,7 +599,7 @@ requests = ">=2.11"
 
 [[package]]
 name = "iscc-core"
-version = "0.2.7"
+version = "0.2.8"
 description = "ISCC - Core Algorithms"
 category = "main"
 optional = false
@@ -621,10 +621,6 @@ xxhash = "*"
 
 [package.extras]
 turbo = ["cython"]
-
-[package.source]
-type = "url"
-url = "https://files.pythonhosted.org/packages/dc/ac/b89f1efbaf495b8788f8fd69fd287bfa124eb0509061686eac9e47213499/iscc-core-0.2.7.tar.gz"
 
 [[package]]
 name = "isodate"
@@ -1337,7 +1333,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">3.7.0,<3.7.1 || >3.7.1,<4.0"
-content-hash = "a4663d1c568579d21a1015140a56ccaa80b8313f2e48a963c01007086326cbaf"
+content-hash = "a5118ebd1de44caffda8df9aed2887f2b28cec742faba911da37d4c5505aab49"
 
 [metadata.files]
 aiohttp = [
@@ -1758,7 +1754,9 @@ ipfshttpclient = [
     {file = "ipfshttpclient-0.8.0a2-py3-none-any.whl", hash = "sha256:ce6bac0e3963c4ced74d7eb6978125362bb05bbe219088ca48f369ce14d3cc39"},
     {file = "ipfshttpclient-0.8.0a2.tar.gz", hash = "sha256:0d80e95ee60b02c7d414e79bf81a36fc3c8fbab74265475c52f70b2620812135"},
 ]
-iscc-core = []
+iscc-core = [
+    {file = "iscc-core-0.2.8.tar.gz", hash = "sha256:f1ffa02f2869f39042379374b64127947f06f2f35f7fb04cb755dfdccfcf1df0"},
+]
 isodate = [
     {file = "isodate-0.6.1-py2.py3-none-any.whl", hash = "sha256:0751eece944162659049d35f4f549ed815792b38793f07cf73381c1c87cbed96"},
     {file = "isodate-0.6.1.tar.gz", hash = "sha256:48c5881de7e8b0a0d648cb024c8062dc84e7b840ed81e864c7614fd3c127bde9"},

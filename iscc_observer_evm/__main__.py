@@ -60,6 +60,18 @@ def update():
             meta_url=event.args.url,
             registrar=event.args.registrar,
         )
+
+        # validate iscc-code
+        code_obj = ic.Code(event.args.iscc)
+        if code_obj.maintype == ic.MT.ID:
+            log.warning(f"skipped registration of {event.args.iscc} with mainttype ISCC-ID")
+            continue
+        clean = ic.iscc_normalize(event.args.iscc)
+        valid = ic.iscc_validate(clean, strict=False)
+        if valid is False:
+            log.warning(f"skipped registration of invalid ISCC {event.args.iscc}")
+            continue
+
         resp = evm.registry().register(declaration)
         log.info(f"registered {event.args.iscc} -> {resp.iscc_id} with did {resp.did}")
 
