@@ -5,9 +5,8 @@ import click
 import iscc_core as ic
 from loguru import logger as log
 from sentry_sdk import capture_exception
-
 import iscc_observer_evm as evm
-from asyncio.exceptions import TimeoutError
+
 
 HERE = pathlib.Path(__file__).parent.absolute()
 
@@ -43,7 +42,7 @@ def update():
             rollback()
         return
 
-    start_height = head.block_height + 1 if head else 0
+    start_height = head.block_height if head else 0
 
     for event in evm.chain().events(from_block=start_height):
         block = evm.chain().block(event.blockNumber)
