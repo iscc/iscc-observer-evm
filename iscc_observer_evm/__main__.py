@@ -7,9 +7,8 @@ import pathlib
 import time
 import click
 import iscc_core as ic
-import requests.exceptions
 from loguru import logger as log
-from sentry_sdk import capture_message, capture_exception
+from sentry_sdk import capture_exception
 
 import iscc_observer_evm as evm
 

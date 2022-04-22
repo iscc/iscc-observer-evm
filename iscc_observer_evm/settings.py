@@ -33,4 +33,4 @@ config = ObserverSettings()
 if config.sentry_dsn:
     import sentry_sdk
 
-    sentry_sdk.init(dsn=config.sentry_dsn, traces_sample_rate=0.1)
+    sentry_sdk.init(dsn=config.sentry_dsn, environment=f"observer-{config.chain_id}")
