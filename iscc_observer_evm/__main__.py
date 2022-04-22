@@ -1,9 +1,16 @@
 # -*- coding: utf-8 -*-
+from asyncio.exceptions import TimeoutError as AsyncTimeoutError
+from requests.exceptions import Timeout as RequestsTimeout
+from requests.exceptions import ConnectionError as RequestsConnectionError
+from requests.exceptions import ReadTimeout as RequestsReadTimeout
 import pathlib
 import time
 import click
 import iscc_core as ic
+import requests.exceptions
 from loguru import logger as log
+from sentry_sdk import capture_message, capture_exception
+
 import iscc_observer_evm as evm
 
 
@@ -96,7 +103,22 @@ def main(envfile):
 
     while True:
         time.sleep(evm.config.update_interval)
-        update()
+        try:
+            update()
+            evm.timeouts = 0
+        except (
+            AsyncTimeoutError,
+            RequestsTimeout,
+            RequestsConnectionError,
+            RequestsReadTimeout,
+        ) as e:
+            evm.timeouts += 1
+            msg = f"{evm.timeouts} consecutive errors"
+            log.warning(msg)
+            # re-initialize client
+            evm.ch = None
+            if evm.timeouts > 3:
+                capture_exception(e)
 
 
 if __name__ == "__main__":
