@@ -4,6 +4,7 @@ import pathlib
 from web3 import Web3
 from web3.middleware import geth_poa_middleware
 import iscc_observer_evm as evm
+from loguru import logger as log
 
 __all__ = ["chain"]
 
@@ -15,6 +16,9 @@ ch = None
 def chain():
     global ch
     if ch is None:
+        ch = Chain()
+    if not ch.w3.isConnected():
+        log.error(f"Connection failed to {evm.config.web3_url}, reconnecting")
         ch = Chain()
     return ch
 

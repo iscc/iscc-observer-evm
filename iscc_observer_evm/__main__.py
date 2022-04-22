@@ -4,7 +4,6 @@ import time
 import click
 import iscc_core as ic
 from loguru import logger as log
-from sentry_sdk import capture_exception
 import iscc_observer_evm as evm
 
 
@@ -40,12 +39,12 @@ def update():
                 f"registry out of sync at height {head.block_height} hash {head.block_hash}"
             )
             rollback()
-        return
 
-    start_height = head.block_height if head else 0
+    start_height = head.block_height + 1 if head else 0
 
     for event in evm.chain().events(from_block=start_height):
         block = evm.chain().block(event.blockNumber)
+        log.info(f"new event for {event.args.iscc}")
         declaration = dict(
             timestamp=block.timestamp,
             chain_id=evm.config.chain_id,
@@ -96,12 +95,7 @@ def main(envfile):
 
     while True:
         time.sleep(evm.config.update_interval)
-        try:
-            update()
-        except Exception as e:
-            if evm.config.sentry_dsn:
-                capture_exception(e)
-            log.error(e)
+        update()
 
 
 if __name__ == "__main__":
