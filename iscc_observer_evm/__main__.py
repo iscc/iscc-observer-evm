@@ -39,6 +39,7 @@ def update():
                 f"registry out of sync at height {head.block_height} hash {head.block_hash}"
             )
             rollback()
+            return
 
     start_height = head.block_height + 1 if head else 0
 
