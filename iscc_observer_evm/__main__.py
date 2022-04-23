@@ -110,6 +110,7 @@ def main(envfile):
             RequestsTimeout,
             RequestsConnectionError,
             RequestsReadTimeout,
+            ValueError,
         ) as e:
             evm.timeouts += 1
             msg = f"{evm.timeouts} consecutive errors"
