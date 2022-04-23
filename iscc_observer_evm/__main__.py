@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+import sys
 from asyncio.exceptions import TimeoutError as AsyncTimeoutError
+from asyncio.exceptions import IncompleteReadError as AsyncIncompleteReadError
 from requests.exceptions import Timeout as RequestsTimeout
 from requests.exceptions import ConnectionError as RequestsConnectionError
 from requests.exceptions import ReadTimeout as RequestsReadTimeout
@@ -113,6 +115,7 @@ def main(envfile):
             RequestsConnectionError,
             RequestsReadTimeout,
             ValueError,
+            AsyncIncompleteReadError,
         ) as e:
             evm.timeouts += 1
             msg = f"{evm.timeouts} consecutive errors"
@@ -121,6 +124,10 @@ def main(envfile):
             evm.ch = None
             if evm.timeouts > 3:
                 capture_exception(e)
+        except KeyboardInterrupt:
+            sys.exit(0)
+        except Exception as e:
+            capture_exception(e)
 
 
 if __name__ == "__main__":
