@@ -8,7 +8,7 @@ import time
 import click
 import iscc_core as ic
 from loguru import logger as log
-from sentry_sdk import capture_exception
+from sentry_sdk import capture_exception, capture_message
 
 import iscc_observer_evm as evm
 
@@ -22,15 +22,17 @@ def rollback():
     while True:
         chain_block = evm.chain().block(head.block_height)
         if head.block_hash != chain_block.hash.hex():
-            log.warning(
-                f"registry out of sync at height {head.block_height} hash {head.block_hash}"
-            )
+            msg = f"registry out of sync at height {head.block_height} hash {head.block_hash}"
+            log.warning(msg)
+            capture_message(msg)
             offset += 1
             head = evm.registry().head(offset=offset)
         else:
             resp = evm.registry().rollback(head.block_hash)
             if resp:
-                log.info(f"rolled back to block {resp.block_hash} at height {resp.block_height}")
+                msg = f"rolled back to block {resp.block_hash} at height {resp.block_height}"
+                log.info(msg)
+                capture_message(msg)
             break
 
 
