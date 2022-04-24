@@ -9,16 +9,28 @@
 
 The service is configured via environment variables:
 
-- **`CHAIN_ID`** - ID of the blockchain to be observed. Currently [supported values](https://core.iscc.codes/constants/#iscc_core.constants.ST_ID--st_id) for EVM chains are `ETHEREUM`, `POLYGON`
+- **`CHAIN_ID`** - ID of blockchain to be observed. [Supported values](https://core.iscc.codes/constants/#iscc_core.constants.ST_ID--st_id) for EVM chains are `ETHEREUM`, `POLYGON`
 - **`WEB3_PROVIDER_URI`** - [Web3 Websocket URI](https://web3py.readthedocs.io/en/stable/providers.html#provider-via-environment-variable) used for connecting to blockchain events.
 - **`HUB_CONTRACT`** - The address of the [ISCC-HUB contract](https://github.com/iscc/iscc-evm#the-iscc-hub-contract)
-- **`REGISTRY_URL`** - URL to OpenAPI REST service of an ISCC-REGISTRY for event publishing
+- **`REGISTRY_URL`** - URL to OpenAPI REST service of an [ISCC-REGISTRY](https://github.com/iscc/iscc-registry) for event publishing
 - **`OBSERVER_TOKEN`** - Bearer secret for authentication with ISCC-REGISTRY API service
 - **`UPDATE_INTERVAL`** - Seconds to wait betweenn synchronization of chain-events and the registry
 - **`READ_TIMEOUT`** - Timeout for Web3 websocket and REST API https connections in seconds
 - **`SENTRY_DSN`** - Optional URI for error notifications via [Sentry](https://sentry.io)
 
 See example at [.env.dev](.env.dev)
+
+## Development
+Requirements Python 3.9 with [Poetry](https://python-poetry.org/)
+Get started with
+```shell
+$ git clone https://github.com/iscc/iscc-observer-evm.git
+$ cd iscc-observer-evm
+$ poetry install
+```
+
+Start an observer instance with `poetry run iscc-observer-evm .env.dev`.
+You may provide your own .env file configured according to your local development setup.
 
 ## Deployment
 
