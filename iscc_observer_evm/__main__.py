@@ -90,10 +90,10 @@ def update():
 def main(envfile):
 
     # Startup
-    log.info(f"load settings from env file {envfile}")
     evm.config = evm.ObserverSettings(_env_file=envfile)
 
     log.info(f" --> starting evm observer")
+    log.info(f"version: {evm.__version__}")
     log.info(f"web3:\t\t{evm.config.web3_url}")
     log.info(f"chain:\t{ic.ST_ID(evm.config.chain_id).name}")
     log.info(f"contract:\t{evm.config.hub_contract}")
