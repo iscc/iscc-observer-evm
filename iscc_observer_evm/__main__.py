@@ -120,6 +120,7 @@ def main(envfile):
             evm.timeouts += 1
             msg = f"{evm.timeouts} consecutive errors"
             log.warning(msg)
+            log.warning(e)
             # re-initialize client
             evm.ch = None
             if evm.timeouts > 3:
