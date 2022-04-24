@@ -11,5 +11,5 @@ def test_evm_config():
         "sentry_dsn": "",
         "update_interval": 5,
         "read_timeout": 20,
-        "web3_url": "wss://127.0.0.1:8546",
+        "web3_provider_uri": "wss://127.0.0.1:8546",
     }

@@ -94,14 +94,14 @@ def main(envfile):
 
     log.info(f" --> starting evm observer")
     log.info(f"version: {evm.__version__}")
-    log.info(f"web3:\t\t{evm.config.web3_url}")
+    log.info(f"web3:\t\t{evm.config.web3_provider_uri}")
     log.info(f"chain:\t{ic.ST_ID(evm.config.chain_id).name}")
     log.info(f"contract:\t{evm.config.hub_contract}")
     log.info(f"registry:\t{evm.config.registry_url}")
     log.info(f"updates:\tevery {evm.config.update_interval} seconds")
 
     while not evm.chain().w3.isConnected():
-        log.error(f"connection failed to {evm.config.web3_url}")
+        log.error(f"connection failed to {evm.config.web3_provider_uri}")
         time.sleep(evm.config.update_interval)
 
     while True:

@@ -18,7 +18,7 @@ def chain():
     if ch is None:
         ch = Chain()
     if not ch.w3.isConnected():
-        log.error(f"Connection failed to {evm.config.web3_url}, reconnecting")
+        log.error(f"Connection failed to {evm.config.web3_provider_uri}, reconnecting")
         ch = Chain()
     return ch
 
@@ -26,7 +26,9 @@ def chain():
 class Chain:
     def __init__(self):
         self.w3 = Web3(
-            Web3.WebsocketProvider(evm.config.web3_url, websocket_timeout=evm.config.read_timeout)
+            Web3.WebsocketProvider(
+                evm.config.web3_provider_uri, websocket_timeout=evm.config.read_timeout
+            )
         )
         self.w3.middleware_onion.inject(geth_poa_middleware, layer=0)
         self.abi = json.load(open(HERE / "abi.json"))

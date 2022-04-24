@@ -7,8 +7,8 @@ __all__ = ["config", "ObserverSettings"]
 
 
 class ObserverSettings(BaseSettings):
-    chain_id: ic.ST_ID = Field(..., description="ID of chain that is being ovserved")
-    web3_url: str = Field(..., description="WEB3_URL for chain event monitoring")
+    chain_id: ic.ST_ID = Field(..., description="ID of chain to be ovserved")
+    web3_provider_uri: str = Field(..., description="WEB3_PROVIDER_URI for chain event monitoring")
     hub_contract: str = Field(..., description="Address of ISCC-HUB contract")
     registry_url: str = Field(..., description="URL of ISCC-REGISTRY service")
     observer_token: str = Field(..., description="OBSERVER_TOKEN for access to ISCC-REGISTRY")
