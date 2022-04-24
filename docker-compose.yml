@@ -2,6 +2,7 @@ version: "3.8"
 services:
   observer-rinkeby:
     container_name: observer-rinkeby
+    restart: always
     volumes:
       - .:/app
     build:
@@ -11,6 +12,7 @@ services:
       - .env.rinkeby
   observer-polygon:
     container_name: observer-polygon
+    restart: always
     volumes:
       - .:/app
     build:
