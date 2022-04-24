@@ -21,7 +21,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ghcr.io/iscc/iscc-service-generator
+          images: ghcr.io/iscc/iscc-observer-evm
           tags: |
             type=ref,event=branch
             type=semver,pattern={{version}}
