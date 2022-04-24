@@ -1,6 +1,6 @@
-FROM python:3.9 AS builder
+FROM python:3.9-slim AS builder
 
-ARG POETRY_VERSION=1.1.12
+ARG POETRY_VERSION=1.1.13
 
 # Disable stdout/stderr buggering, can cause issues with Docker logs
 ENV PYTHONUNBUFFERED=1
@@ -12,6 +12,10 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
 # Configure poetry
 ENV POETRY_NO_INTERACTION=1 \
   POETRY_VIRTUALENVS_PATH=/venvs
+
+RUN apt-get update \
+&& apt-get install gcc -y \
+&& apt-get clean
 
 # Install Poetry and create venv
 # hadolint ignore=DL3013
@@ -28,7 +32,7 @@ COPY pyproject.toml poetry.lock /app/
 
 FROM builder AS runtime
 
-RUN poetry install
+RUN poetry install --no-dev --remove-untracked
 
 
 CMD ["poetry", "run", "iscc-observer-evm"]
