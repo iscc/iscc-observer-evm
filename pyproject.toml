@@ -55,7 +55,7 @@ codegen = { cmd = "datamodel-codegen", help = "Generate code from openapi schema
 format = { cmd = "poetry run black .", help = "Code style formating with black" }
 lf = { cmd = "poetry run python -m tools.lf", help = "Convert line endings to lf"}
 test = { cmd = "poetry run pytest", help = "Run tests with coverage" }
-all = ["codegen", "format", "lf", "test"]
+all = ["format", "lf", "test"]
 
 
 [build-system]
