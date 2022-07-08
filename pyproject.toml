@@ -12,7 +12,7 @@ keywords=["iscc", "identifier", "media", "content", "decentralized", "registry",
 
 [tool.poetry.dependencies]
 python = ">3.7.0,<3.7.1 || >3.7.1,<4.0"
-web3 = "^5.29.0"
+web3 = "^5.30.0"
 cython = "*"
 iscc-core = "^0.2.8"
 click = "^8.1.3"
