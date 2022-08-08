@@ -34,5 +34,6 @@ FROM builder AS runtime
 
 RUN poetry install --no-dev --remove-untracked
 
+COPY . /app/
 
 CMD ["poetry", "run", "iscc-observer-evm"]

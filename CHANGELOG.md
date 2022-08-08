@@ -1,6 +1,8 @@
 # Changelog
 
-## [0.2.2] - Unreleased
+## [0.2.2] - 2022-08-08
+- Updated dependencies
+- Add sources to docker image
 
 ## [0.2.0] - 2022-04-24
 - Changed to docker configuration to smaller base image `python:3.9-slim`
