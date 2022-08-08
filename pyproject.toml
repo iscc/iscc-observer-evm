@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "iscc-observer-evm"
-version = "0.2.1"
+version = "0.2.2"
 description = "ISCC Decentralized Content Registry - Observer Service for EVM based Blockchains."
 authors = ["Titusz <tp@py7.de>"]
 license = "Apache-2.0"
