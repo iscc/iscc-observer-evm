@@ -23,7 +23,7 @@ sentry-sdk = "^1.5.11"
 pytest = "*"
 black = "*"
 poethepoet = "*"
-datamodel-code-generator = {extras = ["http"], version = "^0.12.0"}
+datamodel-code-generator = {extras = ["http"], version = "^0.14.0"}
 
 [tool.poetry.scripts]
 iscc-observer-evm = 'iscc_observer_evm.__main__:main'
